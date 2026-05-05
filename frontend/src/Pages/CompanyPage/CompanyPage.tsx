@@ -1,11 +1,12 @@
 import { CompanyProfile } from "../../company";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { getCompanyProfile } from "../../api";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile";
 import { useState, useEffect } from "react";
 import Spinner from "../../Components/Spinner/Spinner";
+import CompFinder from "../../Components/CompFinder/CompFinder";
 
 interface Props {}
 
@@ -31,6 +32,10 @@ const CompanyPage = (props: Props) => {
             <Tile title="Price" subTitle={company.price.toString()} />
             <Tile title="Sector" subTitle={company.sector} />
             <Tile title="Market Cap" subTitle={company.mktCap.toString()} />
+            <CompFinder ticker={company.symbol} />
+            <p className="bg-white shadow rounded text-medium font-medium text-gray-900 p-3 mt-1 m-4">
+              {company.description}
+            </p>
           </CompanyDashboard>
         </div>
       ) : (
