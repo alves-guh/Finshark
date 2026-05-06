@@ -4,6 +4,10 @@ import Table from "../Table/Table";
 import { CompanyIncomeStatement } from "../../company";
 import { getIncomeStatement } from "../../api";
 import Spinner from "../Spinner/Spinner";
+import {
+  formatLargeMonetaryNumber,
+  formatRatio,
+} from "../../Helpers/NumberFormatting";
 
 type Props = {};
 
@@ -13,32 +17,63 @@ const configs = [
     render: (company: CompanyIncomeStatement) => company.date,
   },
   {
-    label: "Total Revenue",
-    render: (company: CompanyIncomeStatement) => company.revenue,
+    label: "Revenue",
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeMonetaryNumber(company.revenue),
   },
   {
-     label: "Cost Of Revenue",
-    render: (company: CompanyIncomeStatement) => company.costOfRevenue,
+    label: "Cost Of Revenue",
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeMonetaryNumber(company.costOfRevenue),
   },
   {
-    label: "Operating Expenses",
-    render: (company: CompanyIncomeStatement) => company.operatingExpenses,
-  },
-  {
-    label: "Gross Profit",
-    render: (company: CompanyIncomeStatement) => company.grossProfit,
-  },
-  {
-    label: "Gross Margin Ratio",
-    render: (company: CompanyIncomeStatement) => company.grossProfitRatio,
-  },
-  {
-    label: "Income Before Tax",
-    render: (company: CompanyIncomeStatement) => company.incomeBeforeTax,
+    label: "Depreciation",
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeMonetaryNumber(company.depreciationAndAmortization),
   },
   {
     label: "Operating Income",
-    render: (company: CompanyIncomeStatement) => company.operatingIncome,
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeMonetaryNumber(company.operatingIncome),
+  },
+  {
+    label: "Income Before Taxes",
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeMonetaryNumber(company.incomeBeforeTax),
+  },
+  {
+    label: "Net Income",
+    render: (company: CompanyIncomeStatement) =>
+      formatLargeMonetaryNumber(company.netIncome),
+  },
+  {
+    label: "Net Income Ratio",
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.netIncomeRatio),
+  },
+  {
+    label: "Earnings Per Share",
+    render: (company: CompanyIncomeStatement) => formatRatio(company.eps),
+  },
+  {
+    label: "Earnings Per Diluted",
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.epsdiluted),
+  },
+  {
+    label: "Gross Profit Ratio",
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.grossProfitRatio),
+  },
+  {
+    label: "Opearting Income Ratio",
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.operatingIncomeRatio),
+  },
+  {
+    label: "Income Before Taxes Ratio",
+    render: (company: CompanyIncomeStatement) =>
+      formatRatio(company.incomeBeforeTaxRatio),
   },
 ];
 

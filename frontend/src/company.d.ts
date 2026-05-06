@@ -324,19 +324,24 @@ export interface Dividend {
   declarationDate: string;
 }
 
+export interface CompanyHistoricalDividend {
+  symbol: string;
+  historical: Dividend[];
+}
+
+export interface Dividend {
+  date: string;
+  label: string;
+  adjDividend: number;
+  dividend: number;
+  recordDate: string;
+  paymentDate: string;
+  declarationDate: string;
+}
+
 export interface CompanyCompData {
   symbol: string;
   peersList: string[];
-}
-
-export interface CompanyTenK {
-  symbol: string;
-  fillingDate: string;
-  acceptedDate: string;
-  cik: string;
-  type: string;
-  link: string;
-  finalLink: string;
 }
 
 export interface CompanyTenK {
