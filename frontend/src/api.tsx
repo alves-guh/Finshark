@@ -19,7 +19,7 @@ interface SearchResponse{
 export const searchCompanies = async (query: string) => {
     try{
         const data = await axios.get<SearchResponse>(
-            `https://api.twelvedata.com/symbol_search?symbol=${query}&apikey=${process.env.REACT_APP_API_KEY}`
+            `https://api.twelvedata.com/symbol_search?symbol=${query}&apikey=${process.env.REACT_APP_TWELVE_API_KEY}`
         );
         return data;
     } catch(error) {
@@ -36,7 +36,7 @@ export const searchCompanies = async (query: string) => {
 export const getCompanyProfile = async (query: string) => {
   try {
     const data = await axios.get<CompanyProfile[]>(
-      `https://financialmodelingprep.com/api/v3/profile/${query}?apikey=${process.env.REACT_APP_API_KEY}`
+      `https://financialmodelingprep.com/stable/profile?symbol=${query}&apikey=${process.env.REACT_APP_FMP_API_KEY}`
     );
     return data;
   } catch (error: any) {
@@ -47,8 +47,9 @@ export const getCompanyProfile = async (query: string) => {
 export const getKeyMetrics = async (query: string) => {
   try {
     const data = await axios.get<CompanyKeyMetrics[]>(
-       `https://financialmodelingprep.com/api/v3/key-metrics-ttm/${query}?limit=40&apikey=${process.env.REACT_APP_API_KEY}`
+      `https://finnhub.io/api/v1/stock/metric?symbol=${query}&metric=all&token=${process.env.REACT_APP_FINNHUB_API_KEY}`
     );
+
     return data;
   } catch (error: any) {
     console.log("error message: ", error.message);
@@ -57,9 +58,10 @@ export const getKeyMetrics = async (query: string) => {
 
 export const getIncomeStatement = async (query: string) => {
   try {
-    const data = await axios.get<CompanyIncomeStatement[]>(
-       `https://financialmodelingprep.com/api/v3/income-statement/${query}?limit=50&apikey=${process.env.REACT_APP_API_KEY}`
+    const data = await axios.get(
+      `https://finnhub.io/api/v1/stock/financials-reported?symbol=${query}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`
     );
+
     return data;
   } catch (error: any) {
     console.log("error message: ", error.message);
@@ -69,7 +71,7 @@ export const getIncomeStatement = async (query: string) => {
 export const getBalanceSheet = async (query: string) => {
   try {
     const data = await axios.get<CompanyBalanceSheet[]>(
-      `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?limit=20&apikey=${process.env.REACT_APP_API_KEY}`
+      `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?limit=20&apikey=${process.env.REACT_APP_FMP_API_KEY}`
     );
     return data;
   } catch (error: any) {
@@ -80,7 +82,7 @@ export const getBalanceSheet = async (query: string) => {
 export const getCashFlow = async (query: string) => {
   try {
     const data = await axios.get<CompanyCashFlow[]>(
-      `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?limit=100&apikey=${process.env.REACT_APP_API_KEY}`
+      `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?limit=100&apikey=${process.env.REACT_APP_FMP_API_KEY}`
     );
     return data;
   } catch (error: any) {
@@ -90,8 +92,8 @@ export const getCashFlow = async (query: string) => {
 
 export const getCompData = async (query: string) => {
   try {
-    const data = await axios.get<CompanyCompData[]>(
-      `https://financialmodelingprep.com/api/v4/stock_peers?symbol=${query}&apikey=${process.env.REACT_APP_API_KEY}`
+    const data = await axios.get<string[]>(
+      `https://finnhub.io/api/v1/stock/peers?symbol=${query}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`
     );
     return data;
   } catch (error: any) {
@@ -102,8 +104,9 @@ export const getCompData = async (query: string) => {
 export const getTenK = async (query: string) => {
   try {
     const data = await axios.get<CompanyTenK[]>(
-      `https://financialmodelingprep.com/api/v3/sec_filings/${query}?type=10-K&page=0&apikey=${process.env.REACT_APP_API_KEY}`
+      `https://finnhub.io/api/v1/stock/filings?symbol=${query}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`
     );
+
     return data;
   } catch (error: any) {
     console.log("error message: ", error.message);
@@ -113,7 +116,7 @@ export const getTenK = async (query: string) => {
 export const getHistoricalDividend = async (query: string) => {
   try {
     const data = await axios.get<CompanyHistoricalDividend>(
-      `https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${query}?apikey=${process.env.REACT_APP_API_KEY}`
+      `https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${query}?apikey=${process.env.REACT_APP_FMP_API_KEY}`
     );
     return data;
   } catch (error: any) {

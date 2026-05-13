@@ -19,6 +19,11 @@ const CompanyPage = (props: Props) => {
   useEffect(() => {
     const getProfileInit = async () => {
       const result = await getCompanyProfile(ticker!);
+      console.log("RESULTADO API:", result);
+      console.log("DATA:", result?.data);
+      console.log("PRIMEIRO ITEM:", result?.data?.[0]);
+
+      if (!result || !result.data) return;
       setCompany(result?.data[0]);
     };
     getProfileInit();
@@ -26,16 +31,16 @@ const CompanyPage = (props: Props) => {
 
   return (
     <>
-      {company ? (
+      {company !== undefined ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <Sidebar />
           <CompanyDashboard ticker={ticker!}>
             <Tile title="Company Name" subTitle={company.companyName} />
-            <Tile title="Price" subTitle={"$" + company.price.toString()} />
-            <Tile title="DCF" subTitle={"$" + company.dcf.toString()} />
+            <Tile title="Price" subTitle={company?.price ? "$" + company.price.toString() : "N/A"} />
+            <Tile title="DCF" subTitle={company?.dcf ? "$" + company.dcf.toString() : "N/A"} />
             <Tile title="Sector" subTitle={company.sector} />
-            <CompFinder ticker={company.symbol} />
-            <TenKFinder ticker={company.symbol} />
+            {/*<CompFinder ticker={company.symbol} />
+            <TenKFinder ticker={company.symbol} />*/}
             <p className="bg-white shadow rounded text-medium font-medium text-gray-900 p-3 mt-1 m-4">
               {company.description}
             </p>

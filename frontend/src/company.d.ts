@@ -345,11 +345,10 @@ export interface CompanyCompData {
 }
 
 export interface CompanyTenK {
+  accessionNumber: string;
   symbol: string;
-  fillingDate: string;
-  acceptedDate: string;
   cik: string;
-  type: string;
-  link: string;
-  finalLink: string;
+  filedDate: string;
+  form: string;
+  reportUrl: string;
 }

@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import CompFinderItem from "./CompFinderItem/CompFinderItem";
-import { CompanyCompData } from "../../company";
 import { getCompData } from "../../api";
 import Spinner from "../Spinner/Spinner";
+
 type Props = {
   ticker: string;
 };
 
 const CompFinder = ({ ticker }: Props) => {
-  const [companyData, setCompanyData] = useState<CompanyCompData>();
+  const [companyData, setCompanyData] = useState<string[]>([]);
+
   useEffect(() => {
     const getComps = async () => {
       const value = await getCompData(ticker);
-      setCompanyData(value?.data[0]);
+
+      console.log(value?.data);
+
+      if (value?.data) {
+        setCompanyData(value.data);
+      }
     };
+
     getComps();
   }, [ticker]);
+
   return (
     <div className="inline-flex rounded-md shadow-sm m-4" role="group">
-      {companyData ? (
-        companyData?.peersList.map((ticker) => {
-          return <CompFinderItem ticker={ticker} />;
+      {companyData.length > 0 ? (
+        companyData.map((ticker) => {
+          return <CompFinderItem key={ticker} ticker={ticker} />;
         })
       ) : (
         <Spinner />
