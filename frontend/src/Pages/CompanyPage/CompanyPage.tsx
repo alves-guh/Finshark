@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CompanyProfile } from "../../company";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import { getCompanyProfile } from "../../api";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile";
 import Spinner from "../../Components/Spinner/Spinner";
-import CompFinder from "../../Components/CompFinder/CompFinder";
-import TenKFinder from "../../Components/TenKFinder/TenKFinder";
 
 interface Props {}
 
@@ -18,6 +16,7 @@ const CompanyPage = (props: Props) => {
 
   useEffect(() => {
     const getProfileInit = async () => {
+      setCompany(undefined);
       const result = await getCompanyProfile(ticker!);
       console.log("RESULTADO API:", result);
       console.log("DATA:", result?.data);
@@ -27,7 +26,7 @@ const CompanyPage = (props: Props) => {
       setCompany(result?.data[0]);
     };
     getProfileInit();
-  }, []);
+  }, [ticker]);
 
   return (
     <>

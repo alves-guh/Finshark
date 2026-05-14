@@ -57,11 +57,12 @@ const CashflowStatement = (props: Props) => {
   const [cashFlowData, setCashFlowData] = useState<CompanyCashFlow[]>();
   useEffect(() => {
     const getRatios = async () => {
+      setCashFlowData(undefined);
       const result = await getCashFlow(ticker);
-      setCashFlowData(result!.data);
+      setCashFlowData(result?.data);
     };
     getRatios();
-  }, []);
+  }, [ticker]);
   return cashFlowData ? (
     <Table config={config} data={cashFlowData}></Table>
   ) : (

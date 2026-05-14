@@ -83,11 +83,12 @@ const IncomeStatement = (props: Props) => {
     useState<CompanyIncomeStatement[]>();
   useEffect(() => {
     const getRatios = async () => {
+      setIncomeStatement(undefined);
       const result = await getIncomeStatement(ticker!);
-      setIncomeStatement(result!.data);
+      setIncomeStatement(result?.data);
     };
     getRatios();
-  }, []);
+  }, [ticker]);
   return (
     <>
       {incomeStatement ? (

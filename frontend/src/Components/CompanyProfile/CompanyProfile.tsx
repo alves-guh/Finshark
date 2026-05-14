@@ -85,11 +85,12 @@ const CompanyProfile = (props: Props) => {
   const [companyData, setCompanyData] = useState<CompanyKeyMetrics>();
   useEffect(() => {
     const getCompanyKeyRatios = async () => {
+      setCompanyData(undefined);
       const value = await getKeyMetrics(ticker);
-      setCompanyData(value?.data[0]);
+      setCompanyData(value?.data?.[0]);
     };
     getCompanyKeyRatios();
-  }, []);
+  }, [ticker]);
   return (
     <>
       {companyData ? (

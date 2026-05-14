@@ -4,14 +4,14 @@ type Props = {
 };
 
 const RatioList = ({ config, data }: Props) => {
-  const renderedCells = config.map((row: any) => {
+  const renderedCells = config.map((row: any, index: number) => {
     return (
-      <li className="py-6 sm:py-6">
+      <li className="py-6 sm:py-6" key={`${row.label}-${index}`}>
         <div className="flex items-center space-x-4">
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">
+            <div className="text-sm font-medium text-gray-900 truncate">
               {row.label}
-            </p>
+            </div>
             <p className="text-sm text-gray-500 truncate">
               <a
                 href="/cdn-cgi/l/email-protection"

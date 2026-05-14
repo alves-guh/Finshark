@@ -3,18 +3,14 @@ import { CompanyBalanceSheet } from "../../company";
 import { useOutletContext } from "react-router";
 import RatioList from "../RatioList/RatioList";
 import { getBalanceSheet } from "../../api";
-import Table from "../Table/Table";
 import Spinner from "../Spinner/Spinner";
-import {
-  formatLargeMonetaryNumber,
-  formatLargeNonMonetaryNumber,
-} from "../../Helpers/NumberFormatting";
+import { formatLargeMonetaryNumber } from "../../Helpers/NumberFormatting";
 
 type Props = {};
 
 const config = [
   {
-    label: <div className="font-bold">Total Assets</div>,
+    label: <span className="font-bold">Total Assets</span>,
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.totalAssets),
   },
@@ -49,7 +45,7 @@ const config = [
       formatLargeMonetaryNumber(company.otherCurrentLiabilities),
   },
   {
-    label: <div className="font-bold">Total Liabilites</div>,
+    label: <span className="font-bold">Total Liabilites</span>,
     render: (company: CompanyBalanceSheet) =>
       formatLargeMonetaryNumber(company.totalLiabilities),
   },
@@ -85,11 +81,12 @@ const BalanceSheet = (props: Props) => {
   const [companyData, setCompanyData] = useState<CompanyBalanceSheet>();
   useEffect(() => {
     const getCompanyData = async () => {
+      setCompanyData(undefined);
       const value = await getBalanceSheet(ticker!);
       setCompanyData(value?.data[0]);
     };
     getCompanyData();
-  }, []);
+  }, [ticker]);
   return (
     <>
       {companyData ? (
